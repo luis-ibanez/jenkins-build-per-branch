@@ -17,6 +17,7 @@ class JenkinsApi {
     RESTClient restClient
     RESTClient restClientApi
     HttpRequestInterceptor requestInterceptor
+    HttpRequestInterceptor requestInterceptorApi
     boolean findCrumb = true
     def crumbInfo
 
@@ -27,8 +28,8 @@ class JenkinsApi {
         this.jenkinsServerUrlApi = jenkinsServerUrlApi
         this.restClient = new RESTClient(jenkinsServerUrl)
         this.restClientApi = new RESTClient(jenkinsServerUrlApi)
-        println this.restClient
-        println this.restClientApi
+        println jenkinsServerUrl
+        println jenkinsServerUrlApi
     }
 
     public void addBasicAuth(String jenkinsServerUser, String jenkinsServerPassword) {
@@ -41,8 +42,15 @@ class JenkinsApi {
             }
         }
 
+        this.requestInterceptorApi = new HttpRequestInterceptor() {
+            void process(HttpRequest httpRequest, HttpContext httpContext) {
+                def auth = jenkinsServerUser + ':' + jenkinsServerPassword
+                httpRequest.addHeader('Authorization', 'Basic ' + auth.bytes.encodeBase64().toString())
+            }
+        }
+
         this.restClient.client.addRequestInterceptor(this.requestInterceptor)
-        this.restClientApi.client.addRequestInterceptor(this.requestInterceptor)
+        this.restClientApi.client.addRequestInterceptor(this.requestInterceptorApi)
     }
 
     List<String> getJobNames(String prefix = null) {
