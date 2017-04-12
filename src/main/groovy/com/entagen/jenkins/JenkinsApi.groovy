@@ -15,6 +15,7 @@ class JenkinsApi {
     String jenkinsServerUrl
     String jenkinsServerUrlApi
     RESTClient restClient
+    RESTClient restClientApi
     HttpRequestInterceptor requestInterceptor
     boolean findCrumb = true
     def crumbInfo
@@ -25,6 +26,7 @@ class JenkinsApi {
         this.jenkinsServerUrl = jenkinsServerUrl
         this.jenkinsServerUrlApi = jenkinsServerUrlApi
         this.restClient = new RESTClient(jenkinsServerUrl)
+        this.restClientApi = new RESTClient(jenkinsServerUrlApi)
     }
 
     public void addBasicAuth(String jenkinsServerUser, String jenkinsServerPassword) {
@@ -38,6 +40,7 @@ class JenkinsApi {
         }
 
         this.restClient.client.addRequestInterceptor(this.requestInterceptor)
+        this.restClientApi.client.addRequestInterceptor(this.requestInterceptor)
     }
 
     List<String> getJobNames(String prefix = null) {
@@ -174,7 +177,7 @@ class JenkinsApi {
             findCrumb = false
             println "Trying to find crumb: ${jenkinsServerUrlApi}crumbIssuer/api/json"
             try {
-                def response = restClient.get(path: "crumbIssuer/api/json")
+                def response = restClientApi.get(path: "crumbIssuer/api/json")
 
                 if (response.data.crumbRequestField && response.data.crumb) {
                     crumbInfo = [:]
