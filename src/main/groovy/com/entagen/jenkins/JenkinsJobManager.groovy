@@ -147,11 +147,14 @@ class JenkinsJobManager {
     JenkinsApi initJenkinsApi() {
         println "initJenkinsApi : $jenkinsApi"
         if (!jenkinsApi) {
-            assert jenkinsUrl != null
-            assert jenkinsUrlApi != null
             println "jenkinsUrl : $jenkinsUrl"
             println "jenkinsUrlApi : $jenkinsUrlApi"
-            println "init jenkinsUrlApi api"
+            assert jenkinsUrl != null
+            println "jenkinsUrl : $jenkinsUrl"
+            println "jenkinsUrlApi : $jenkinsUrlApi"
+            assert jenkinsUrlApi != null
+            println "jenkinsUrlApi : $jenkinsUrlApi"
+            println "init jenkins api"
             if (dryRun) {
                 println "DRY RUN! Not executing any POST commands to Jenkins, only GET commands"
                 this.jenkinsApi = new JenkinsApiReadOnly(jenkinsServerUrl: jenkinsUrl)
@@ -159,6 +162,8 @@ class JenkinsJobManager {
                 println "am I working"
                 this.jenkinsApi = new JenkinsApi(jenkinsServerUrl: jenkinsUrl, jenkinsServerUrlApi: jenkinsUrlApi)
                 println "yes you are"
+                println "jenkinsUrl : $jenkinsUrl"
+                println "jenkinsUrlApi : $jenkinsUrlApi"
             }
 
             if (jenkinsUser || jenkinsPassword) this.jenkinsApi.addBasicAuth(jenkinsUser, jenkinsPassword)
