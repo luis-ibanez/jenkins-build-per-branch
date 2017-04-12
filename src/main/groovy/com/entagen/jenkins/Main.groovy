@@ -7,6 +7,7 @@ Bootstrap class that parses command line arguments, or system properties passed 
 class Main {
     public static final Map<String, Map<String, Object>> opts = [
             h: [longOpt: 'help', required: false, args: 0, argName: 'help', description: "Print usage information - gradle flag -Dhelp=true"],
+            i: [longOpt: 'jenkins-url-api', required: true, args: 1, argName: 'jenkinsUrlApi', description: "Jenkins URL Api- gradle flag -DjenkinsUrl=<jenkinsUrl>"],
             j: [longOpt: 'jenkins-url', required: true, args: 1, argName: 'jenkinsUrl', description: "Jenkins URL - gradle flag -DjenkinsUrl=<jenkinsUrl>"],
             u: [longOpt: 'git-url',  required: true, args: 1, argName: 'gitUrl', description: "Git Repository URL - gradle flag -DgitUrl=<gitUrl>"],
             p: [longOpt: 'job-prefix', required: true, args: 1, argName: 'templateJobPrefix', description: "Template Job Prefix, - gradle flag -DtemplateJobPrefix=<jobPrefix>"],

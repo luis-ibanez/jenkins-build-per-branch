@@ -13,14 +13,17 @@ import org.apache.http.HttpRequest
 
 class JenkinsApi {
     String jenkinsServerUrl
+    String jenkinsServerUrlApi
     RESTClient restClient
     HttpRequestInterceptor requestInterceptor
     boolean findCrumb = true
     def crumbInfo
 
-    public void setJenkinsServerUrl(String jenkinsServerUrl) {
+    public void setJenkinsServerUrl(String jenkinsServerUrl, String jenkinsServerUrlApi) {
         if (!jenkinsServerUrl.endsWith("/")) jenkinsServerUrl += "/"
         this.jenkinsServerUrl = jenkinsServerUrl
+        if (!jenkinsServerUrlApi.endsWith("/")) jenkinsServerUrl += "/"
+        this.jenkinsServerUrlApi = jenkinsServerUrlApi
         this.restClient = new RESTClient(jenkinsServerUrl)
     }
 
@@ -169,7 +172,7 @@ class JenkinsApi {
         //http://jenkinsurl.com/crumbIssuer/api/json  get crumb for csrf protection  json: {"crumb":"c8d8812d615292d4c0a79520bacfa7d8","crumbRequestField":".crumb"}
         if (findCrumb) {
             findCrumb = false
-            println "Trying to find crumb: ${jenkinsServerUrl}crumbIssuer/api/json"
+            println "Trying to find crumb: ${jenkinsServerUrlApi}crumbIssuer/api/json"
             try {
                 def response = restClient.get(path: "crumbIssuer/api/json")
 
