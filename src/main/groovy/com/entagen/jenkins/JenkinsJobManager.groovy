@@ -26,6 +26,7 @@ class JenkinsJobManager {
         for (property in props) {
             this."${property.key}" = property.value
         }
+        println "Intiating jenkins api"
         initJenkinsApi()
         initGitApi()
     }
@@ -147,11 +148,14 @@ class JenkinsJobManager {
         if (!jenkinsApi) {
             assert jenkinsUrl != null
             assert jenkinsUrlApi != null
+            println "init jenkins api"
             if (dryRun) {
                 println "DRY RUN! Not executing any POST commands to Jenkins, only GET commands"
                 this.jenkinsApi = new JenkinsApiReadOnly(jenkinsServerUrl: jenkinsUrl)
             } else {
+                println "am I working"
                 this.jenkinsApi = new JenkinsApi(jenkinsServerUrl: jenkinsUrl, jenkinsServerUrlApi: jenkinsUrlApi)
+                println "yes you are"
             }
 
             if (jenkinsUser || jenkinsPassword) this.jenkinsApi.addBasicAuth(jenkinsUser, jenkinsPassword)
