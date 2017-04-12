@@ -8,6 +8,7 @@ class JenkinsJobManager {
     String gitUrl
     String nestedView
     String jenkinsUrl
+    String jenkinsUrlApi
     String branchNameRegex
     String viewRegex
     String jenkinsUser
@@ -149,7 +150,7 @@ class JenkinsJobManager {
                 println "DRY RUN! Not executing any POST commands to Jenkins, only GET commands"
                 this.jenkinsApi = new JenkinsApiReadOnly(jenkinsServerUrl: jenkinsUrl)
             } else {
-                this.jenkinsApi = new JenkinsApi(jenkinsServerUrl: jenkinsUrl)
+                this.jenkinsApi = new JenkinsApi(jenkinsServerUrl: jenkinsUrl, jenkinsServerUrlApi: jenkinsUrlApi)
             }
 
             if (jenkinsUser || jenkinsPassword) this.jenkinsApi.addBasicAuth(jenkinsUser, jenkinsPassword)
