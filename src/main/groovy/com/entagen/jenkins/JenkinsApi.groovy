@@ -23,11 +23,18 @@ class JenkinsApi {
 
     public void setJenkinsServerUrl(String jenkinsServerUrl, String jenkinsServerUrlApi) {
         if (!jenkinsServerUrl.endsWith("/")) jenkinsServerUrl += "/"
+        println "1"
         if (!jenkinsServerUrlApi.endsWith("/")) jenkinsServerUrlApi += "/"
+        println "2"
         this.jenkinsServerUrl = jenkinsServerUrl
+        println "3"
         this.jenkinsServerUrlApi = jenkinsServerUrlApi
+        println "4"
         this.restClient = new RESTClient(jenkinsServerUrl)
+        println "5"
         this.restClientApi = new RESTClient(jenkinsServerUrlApi)
+        println "6"
+
         println jenkinsServerUrl
         println jenkinsServerUrlApi
     }
