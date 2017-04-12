@@ -146,6 +146,7 @@ class JenkinsJobManager {
     JenkinsApi initJenkinsApi() {
         if (!jenkinsApi) {
             assert jenkinsUrl != null
+            assert jenkinsUrlApi != null
             if (dryRun) {
                 println "DRY RUN! Not executing any POST commands to Jenkins, only GET commands"
                 this.jenkinsApi = new JenkinsApiReadOnly(jenkinsServerUrl: jenkinsUrl)
