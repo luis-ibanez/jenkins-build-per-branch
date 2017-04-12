@@ -22,6 +22,7 @@ class JenkinsApi {
     def crumbInfo
 
     public void setJenkinsServerUrl(String jenkinsServerUrl, String jenkinsServerUrlApi) {
+        println "0"
         if (!jenkinsServerUrl.endsWith("/")) jenkinsServerUrl += "/"
         println "1"
         if (!jenkinsServerUrlApi.endsWith("/")) jenkinsServerUrlApi += "/"
